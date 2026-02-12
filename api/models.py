@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -18,3 +19,21 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    class StatusChoise(models.TextChoices):
+        PENDING  = 'Pending'
+        CONFIRMED = 'Confirmed'
+        CANCELLED = 'Cancelled'
+
+    order_id = models.UUIDField(primary_key=True,default=uuid.uuid4)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=10,
+        choices=StatusChoise.choices,
+        default=StatusChoise.PENDING
+        )
+    
+    def __str__(self):
+        return f"Order {self.order_id} by {self.user.username}"
