@@ -8,5 +8,5 @@ urlpatterns = [
     # path('products/<int:pk>/',views.product_detail), fun
     path('products/<int:product_id>/',views.ProductDetailAPIView.as_view()),
     path('orders/',views.OrderListAPiView.as_view()),
-    path('user-orders/',views.UserOrderListAPiView.as_view()),
+    path('user-orders/',views.UserOrderListAPiView.as_view(),name='user-orders'),
 ]
