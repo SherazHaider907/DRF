@@ -52,7 +52,11 @@ from rest_framework.views import APIView
 # class base view
 
 class ProductListAPiView(generics.ListAPIView):
-    queryset = Product.objects.filter(stock__gt=0)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductCreateAPiView(generics.CreateAPIView):
+    model  = Product
     serializer_class = ProductSerializer
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
