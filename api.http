@@ -2,6 +2,26 @@ GET  http://127.0.0.1:8000/products/ HTTP/1.1
 
 ###
 
+GET  http://127.0.0.1:8000/products/8/ HTTP/1.1
+
+###
+DELETE  http://127.0.0.1:8000/products/8/ HTTP/1.1
+
+###
+
+PUT  http://127.0.0.1:8000/products/8/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMzEwMjUwLCJpYXQiOjE3NzEzMDk5NTAsImp0aSI6IjAyNWU4NTRkOWM3ODRkZTNhZWNhYzI1MDAzMjEwYWYyIiwidXNlcl9pZCI6IjEifQ.dFaWEuCMdPycP8heNEaQ-sk6pENsxuO1vrsHrpD9x2k
+
+{
+    "name":"Television",
+    "price": 300.00,
+    "stock": 14,
+    "description" : "Samsung TV"
+}
+
+###
+
 POST  http://127.0.0.1:8000/products/ HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMjYwNzkxLCJpYXQiOjE3NzEyNjA0OTEsImp0aSI6ImIxMGI0YjdhOTQxZjRlYWJhMWJiZjI2N2ZjMmE5NTVlIiwidXNlcl9pZCI6IjIifQ.b5zOUIzKrvr6HnyumZvk4XEpgvWLipt8ybWilcfuYJ0
@@ -27,3 +47,13 @@ Content-Type: application/json
 
 GET  http://127.0.0.1:8000/user-orders/ HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMjYwNzkxLCJpYXQiOjE3NzEyNjA0OTEsImp0aSI6ImIxMGI0YjdhOTQxZjRlYWJhMWJiZjI2N2ZjMmE5NTVlIiwidXNlcl9pZCI6IjIifQ.b5zOUIzKrvr6HnyumZvk4XEpgvWLipt8ybWilcfuYJ0
+
+
+###
+
+POST  http://127.0.0.1:8000/api/token/refresh/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MTM0OTUzMywiaWF0IjoxNzcxMjYzMTMzLCJqdGkiOiIwYTNmYmMyOTM1MDk0Zjk1OTc2YzU1MTdiMWE2MjhlMiIsInVzZXJfaWQiOiIxIn0.J_-WmBoRTiSWabe4hmBNUUbwj7K36CQaTTFMhaqnlyY"
+}
