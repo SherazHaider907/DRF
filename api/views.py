@@ -73,8 +73,13 @@ class ProductListCreateAPiView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     # filterset_fields = ('name','price')
     filterset_class = ProductFilter
-    filter_backends = [DjangoFilterBackend,filters.SearchFilter]
-    search_fields = ['username', 'description']
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+        ]
+    search_fields = ['name', 'description']
+    ordering_fields = ['name','price','stock']
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]
