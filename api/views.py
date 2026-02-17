@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from .filters import ProductFilter
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from api.filters import ProductFilter,InStockFilterBackend
 
 # function base view creating api
 
@@ -76,7 +77,8 @@ class ProductListCreateAPiView(generics.ListCreateAPIView):
     filter_backends = [
         DjangoFilterBackend,
         filters.SearchFilter,
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        InStockFilterBackend
         ]
     search_fields = ['name', 'description']
     ordering_fields = ['name','price','stock']
