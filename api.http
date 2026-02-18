@@ -39,8 +39,9 @@ POST  http://127.0.0.1:8000/api/token/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "username" : "admin",
-    "password" : "75397561az"
+    "username" : "jon",
+    "password" : "admin"
+    
 }
 
 ###
@@ -56,4 +57,30 @@ Content-Type: application/json
 
 {
     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3MTM0OTUzMywiaWF0IjoxNzcxMjYzMTMzLCJqdGkiOiIwYTNmYmMyOTM1MDk0Zjk1OTc2YzU1MTdiMWE2MjhlMiIsInVzZXJfaWQiOiIxIn0.J_-WmBoRTiSWabe4hmBNUUbwj7K36CQaTTFMhaqnlyY"
+}
+
+###
+
+GET  http://127.0.0.1:8000/orders/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxMzk0ODkwLCJpYXQiOjE3NzEzOTQ1OTAsImp0aSI6IjdlMjhjZGE4Yjk4YjQ4YTZhMTRlYmQ3M2JmNjA2MDAwIiwidXNlcl9pZCI6IjIifQ.h_uAzlFuot9YLOEUR-5nXAv0ZtnyIeaWUpE9b6vFWw4
+
+
+###
+
+POST  http://127.0.0.1:8000/orders/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxNDEzOTE3LCJpYXQiOjE3NzE0MTM2MTcsImp0aSI6Ijk1ZDEyMjRiM2FmYzQ2MTZiNTYwYTk5MjdiMDE1MTg3IiwidXNlcl9pZCI6IjIifQ.uYfgpbBflpo7xBeSf91XdvsPKRfJle7LVBHM1SSm8KQ
+
+{
+    "status":"Pending",
+    "items":[
+        {
+            "product":2,
+            "quantity":2
+        },
+        {
+            "product":3,
+            "quantity":1
+        }
+    ]
 }
