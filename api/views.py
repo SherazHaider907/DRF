@@ -1,18 +1,22 @@
 from django.db.models import Max
-from django.shortcuts import render,get_object_or_404
-from api.serializers import ProductSerializer,OrderSerializer,OrderItemSerializer,ProductInfoSerializer
-from api.models import Product,Order,OrderItem
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated ,IsAdminUser,AllowAny
-from rest_framework.views import APIView
-from rest_framework import viewsets
-from .filters import ProductFilter
-from rest_framework import filters
+from django.shortcuts import get_object_or_404, render
 from django_filters.rest_framework import DjangoFilterBackend
-from api.filters import ProductFilter,InStockFilterBackend
-from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
+from rest_framework.decorators import action
+from rest_framework import filters, generics, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.pagination import (LimitOffsetPagination,
+                                    PageNumberPagination)
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from api.filters import InStockFilterBackend, OrderFilter, ProductFilter
+from api.models import Order, OrderItem, Product
+from api.serializers import (OrderItemSerializer, OrderSerializer,
+                            ProductInfoSerializer, ProductSerializer)
+
+from .filters import ProductFilter
+
 # function base view creating api
 
 # def product_list(request):
@@ -116,8 +120,20 @@ class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class OrderViewset(viewsets.ModelViewSet):
     queryset =  Order.objects.prefetch_related('items__product').all()
     serializer_class = OrderSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     pagination_class = None
+    filterset_class = OrderFilter
+    filter_backends = [DjangoFilterBackend]
+
+    @action(
+            detail=False,
+            methods=['get'],
+            url_path='user-orders',
+            )
+    def user_order(self,request):
+        orders = self.get_queryset().filter(user=request.user) 
+        serializer = self.get_serializer(orders,many = True)
+        return Response(serializer.data)
 
 # class UserOrderListAPiView(generics.ListAPIView):
 #     queryset =  Order.objects.prefetch_related('items__product').all()
