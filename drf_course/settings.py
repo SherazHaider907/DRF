@@ -166,7 +166,8 @@ CACHES = {
 }
 
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
-
+CELERY_RESULT_URL = "redis://127.0.0.1:6379/0"
+EMAIL_BACKEND = "django.core.mail.backend.console.EmailBackend"
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),  
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1), 

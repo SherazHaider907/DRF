@@ -16,6 +16,7 @@ from api.models import Order, OrderItem, Product,User
 from api.serializers import (OrderSerializer,
                             ProductInfoSerializer, ProductSerializer,OrderCreateSerializer,UserSerializer)
 from rest_framework.throttling import ScopedRateThrottle
+from api.tasks import send_order_confirmation_email
 
 from .filters import ProductFilter
 
@@ -79,7 +80,8 @@ class OrderViewset(viewsets.ModelViewSet):
         return super().list(request,*args,**kwargs)
     
     def perform_create(self, serializer):
-        serializer.save(user = self.request.user)
+        order = serializer.save(user = self.request.user)
+        send_order_confirmation_email.delay(order,self.request.user.email)
 
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update':
