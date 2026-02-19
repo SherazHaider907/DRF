@@ -131,7 +131,20 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        # 'rest_framework.throttling.ScopedRateThrottle',
+        # 'api.throttles.BurstRateThrottle',
+        # 'api.throttles.SustainedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '2/minute',
+        'products':'2/minute',
+        'orders': '4/minute'
+        # 'burst': '10/min',
+        # 'sustained': '15/hour'
+    }
 }
 
 SPECTACULAR_SETTINGS = {
